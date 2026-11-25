@@ -19,6 +19,7 @@
     ["gift is in and your spot is saved.", "entry is paid and your spot is saved."],
     ["Artists · Encouraged donation", "Artists · Pay what you want entry"],
     ["$10 donation encouraged.", "$10 suggested entry. Pay what you want."],
+    ["$10 encouraged", "$10 suggested"],
     ["RSVPs, donations and profile", "RSVPs, payments and profile"],
     ["My RSVPs & Donations", "My RSVPs & Payments"],
     ["Donation & RSVP", "Entry & RSVP"],
