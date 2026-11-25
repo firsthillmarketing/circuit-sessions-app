@@ -1,0 +1,13 @@
+{
+  "appId": "com.circuitsessions.app",
+  "appName": "Circuit Sessions",
+  "webDir": "www",
+  "server": { "url": "https://circuitsessions.com", "cleartext": false, "errorPath": "offline.html", "allowNavigation": ["circuitsessions.com","*.circuitsessions.com","js.stripe.com","*.stripe.com","*.stripe.network"] },
+  "backgroundColor": "#000000",
+  "ios": { "contentInset": "never", "scrollEnabled": true, "limitsNavigationsToAppBoundDomains": false, "backgroundColor": "#000000" },
+  "android": { "backgroundColor": "#000000", "allowMixedContent": false },
+  "plugins": {
+    "SplashScreen": { "launchShowDuration": 900, "launchAutoHide": true, "backgroundColor": "#000000", "showSpinner": false },
+    "StatusBar": { "style": "DARK", "backgroundColor": "#000000", "overlaysWebView": false }
+  }
+}
