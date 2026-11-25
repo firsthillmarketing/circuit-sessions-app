@@ -49,4 +49,30 @@ for f in ("splash-2732x2732.png", "splash-2732x2732-1.png", "splash-2732x2732-2.
 chk = Image.open("ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png")
 print("Icon:", chk.size, chk.mode, "corner", chk.getpixel((3, 3)))
 PY
+
+python3 - <<'PY'
+# Native injection: www/native-inject.js runs on circuitsessions.com pages inside the app only (WKUserScript); the website itself is unchanged.
+import re
+d = "ios/App/App/AppDelegate.swift"; s = open(d).read()
+if "InjectViewController" not in s:
+    if "import WebKit" not in s: s = s.replace("import UIKit", "import UIKit\nimport WebKit", 1)
+    s += """
+
+class InjectViewController: CAPBridgeViewController {
+    override func capacitorDidLoad() {
+        super.capacitorDidLoad()
+        if let url = Bundle.main.url(forResource: "native-inject", withExtension: "js", subdirectory: "public"),
+           let src = try? String(contentsOf: url, encoding: .utf8) {
+            webView?.configuration.userContentController.addUserScript(WKUserScript(source: src, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        }
+    }
+}
+"""
+    open(d, "w").write(s)
+sb = "ios/App/App/Base.lproj/Main.storyboard"; t = open(sb).read()
+t2 = re.sub(r'customClass="CAPBridgeViewController" customModule="Capacitor"', 'customClass="InjectViewController" customModule="App" customModuleProvider="target"', t)
+open(sb, "w").write(t2)
+print("Native inject:", "InjectViewController" in open(d).read(), "| storyboard switched:", t2 != t or "InjectViewController" in t)
+PY
+
 echo "Circuit Sessions iOS project ready."
